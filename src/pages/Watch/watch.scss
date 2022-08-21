@@ -1,0 +1,375 @@
+@use "../../scss/" as *;
+
+.ani-watch {
+  box-sizing: border-box;
+  position: relative;
+  margin-top: 25px;
+  display: flex;
+  &__main__container {
+    width: calc(100% - 400px);
+    margin-right: 10px;
+    box-shadow: -5px 5px 20px rgb(0 0 0 / 40%);
+    border-radius: 6px;
+  }
+  &__theater-section {
+    position: relative;
+    -webkit-box-pack: justify;
+  }
+  &__header {
+    display: flex;
+    padding: 10px;
+    background: $player-bg;
+    border-radius: 6px 6px 0 0;
+    .logo-ani {
+      height: 70px;
+      width: 60px;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        flex-shrink: 0;
+        border-radius: 6px;
+      }
+    }
+    .info-ani {
+      display: flex;
+      flex-direction: column;
+      margin-left: 10px;
+      flex-shrink: 1;
+      width: 100%;
+      &__content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        line-height: 1;
+      }
+      &__title {
+        font-size: 26px;
+        font-family: $main-fontFamily;
+      }
+      &__toolbar {
+        display: flex;
+        align-items: center;
+        gap: 0 8px;
+        &__btnFav {
+          border-radius: 6px;
+          outline: none;
+          padding: 5px 14px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          line-height: 1;
+          background-color: $main-color;
+          cursor: pointer;
+          span {
+            font-family: $main-fontFamily;
+            margin-left: 3px;
+            padding-top: 3px;
+          }
+        }
+        &__btnShare {
+          border-radius: 6px;
+          outline: none;
+          padding: 5px 14px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          line-height: 1;
+          background-color: $second-color;
+          cursor: pointer;
+          span {
+            font-family: $main-fontFamily;
+            margin-left: 3px;
+            margin-top: 3px;
+          }
+        }
+      }
+      &__subtitle {
+        display: flex;
+        align-items: center;
+
+        & > * {
+          margin-left: 20px;
+        }
+        .rate {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 3px 6px 3px 3px;
+          margin-left: 0 !important;
+          border-radius: 4px;
+          background-image: linear-gradient(
+            315deg,
+            #f7accf 0%,
+            $main-color 76%
+          );
+          svg {
+            padding: 2px;
+          }
+          &__txt {
+            font-family: $main-fontFamily;
+            line-height: 1;
+            padding-top: 3px;
+          }
+        }
+        .ani__name {
+          font-family: $main-fontFamily;
+        }
+        .view {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #a2a2a2;
+          svg {
+            padding: 2px;
+          }
+          &__txt {
+            font-family: $main-fontFamily;
+          }
+        }
+      }
+    }
+  }
+  &__footer {
+    background: $player-bg;
+    border-radius: 0 0 6px 6px;
+    padding: 10px;
+  }
+  .ani-player {
+    position: relative;
+    background-color: #000;
+    outline: none;
+    overflow: hidden;
+    padding-right: 0 !important;
+    &__controls {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: rgba(0, 0, 0, 0.65);
+      height: 45px;
+      width: 100%;
+      padding: 0 10px;
+      z-index: 1;
+      transform: translateY(0px); //40
+      transition-delay: 3s;
+      transition-duration: 0.3s;
+    }
+    &:hover {
+      .ani-player__controls {
+        transform: translateY(0);
+        transition: 0.3s ease;
+      }
+    }
+    &__left {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0 10px;
+    }
+    &__right {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0 15px;
+    }
+    &__progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      cursor: pointer;
+      .seek-bar {
+        --seek-before-width: 0;
+        --seek-before-color: #ff3377;
+        -webkit-appearance: none;
+        appearance: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        width: 100%;
+        background-color: #646464;
+        outline: none;
+        cursor: pointer;
+        &::before {
+          content: "";
+          height: 100%;
+          width: var(--seek-before-width);
+          background-color: var(--seek-before-color);
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 2;
+          cursor: pointer;
+        }
+      }
+      .seek-bar::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        border: none;
+        background-color: $main-color;
+        z-index: 3;
+        box-sizing: border-box;
+        transition: all 0.2s ease;
+        cursor: pointer;
+      }
+    }
+    &__timer {
+      font-family: $main-fontFamily;
+      font-style: 16px;
+      user-select: none;
+    }
+    &__btn {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    .video-player {
+      object-fit: contain;
+      outline: none;
+      width: 100%;
+      height: 474px;
+    }
+    video {
+      object-fit: contain;
+      outline: none;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  &__ep__container {
+    width: 400px;
+    height: 745px; //635px
+    background-color: $player-bg;
+    padding: 10px 10px 0 10px;
+    border-radius: 6px;
+    box-shadow: 0px 5px 20px rgb(0 0 0 / 40%);
+  }
+  &__list {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    &:hover {
+      overflow-y: scroll;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+  }
+  &__ep__card {
+    --column: 6;
+    --spacing: 10px;
+    position: relative;
+    display: flex;
+    height: calc(100% / var(--column) - var(--spacing));
+    width: 100%;
+    margin-bottom: var(--spacing);
+    cursor: pointer;
+  }
+  &__ep__left {
+    position: relative;
+    width: 190px;
+    height: 100%;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border-radius: 8px;
+    }
+  }
+  &__ep__right {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    margin: 0 8px;
+  }
+  &__info {
+    flex: 1;
+    &__title {
+      font-size: 18px;
+      font-family: $main-fontFamily;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: break-word;
+    }
+  }
+  &__desc {
+    margin-top: 5px;
+    &__view {
+      font-size: 16px;
+      font-family: $main-fontFamily;
+      color: #999;
+    }
+  }
+}
+.ani-watch__similar {
+  margin-top: 25px;
+  &__title {
+    font-family: $main-fontFamily;
+    font-size: 20px;
+    line-height: 1;
+  }
+  .ani-list-item {
+    margin-top: 10px;
+  }
+}
+.volume {
+  --seek-before-width: 0;
+  --seek-before-color: #ff3377;
+  -webkit-appearance: none;
+  margin-left: 5px;
+  height: 3px;
+  width: 100px;
+  border-radius: 3px;
+  background-color: #646464;
+  outline: none;
+  cursor: pointer;
+  &::before {
+    content: "";
+    height: 100%;
+    width: var(--seek-before-width);
+    background-color: var(--seek-before-color);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    cursor: pointer;
+  }
+}
+
+.volume::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: $main-color;
+  cursor: pointer;
+  border: none;
+  z-index: 3;
+  box-sizing: border-box;
+}
+
+.ani-player__progress {
+  &:hover {
+    .seek-bar::-webkit-slider-thumb {
+      height: 12px;
+      width: 12px;
+      transition: all 0.2s;
+    }
+  }
+}
